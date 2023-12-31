@@ -1,6 +1,11 @@
 import Image from 'next/image';
 
-import { IoCalculator, IoLogoReact, IoBrowsersOutline } from 'react-icons/io5';
+import {
+	IoCalculator,
+	IoLogoReact,
+	IoBrowsersOutline,
+	IoFootball,
+} from 'react-icons/io5';
 
 import { SidebarMenuItems } from './SidebarMenuItems';
 
@@ -17,14 +22,20 @@ const menuItems = [
 		title: 'Counter',
 		subTitle: 'Contador Client Side',
 	},
+	{
+		path: '/dashboard/pokemons',
+		icon: <IoFootball size={35} />,
+		title: 'Pokemons',
+		subTitle: 'Generacion estatica',
+	},
 ];
 
 export const Sidebar = () => {
 	return (
 		<div
-			style={{ width: '400px' }}
+			style={{ width: '350px' }}
 			id='menu'
-			className='bg-gray-900 min-h-screen z-10 text-slate-300 w-64 left-0 h-screen overflow-y-scroll'
+			className='bg-gray-900 min-h-screen z-10 text-slate-300 w-64 left-0 overflow-y-scroll'
 		>
 			<div
 				id='logo'
@@ -65,9 +76,9 @@ export const Sidebar = () => {
 				id='nav'
 				className='w-full px-6'
 			>
-				{menuItems.map(({ icon, path, subTitle, title }) => (
+				{menuItems.map(({ icon, path, subTitle, title }, idx) => (
 					<SidebarMenuItems
-						key={path}
+						key={idx}
 						path={path}
 						icon={icon}
 						title={title}
