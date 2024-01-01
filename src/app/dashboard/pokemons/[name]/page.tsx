@@ -1,28 +1,33 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-
-import { PokemonResponse } from '@/pokemons';
 import { notFound } from 'next/navigation';
 
+import { PokemonResponse, PokemonsResponse } from '@/pokemons';
+
 interface Props {
-	params: { id: string };
+	params: { name: string };
 }
 
 // Static Generation
 export async function generateStaticParams() {
-	const static151Pokemons = Array.from({ length: 151 }).map(
-		(value, index) => `${index + 1}`
-	);
+	const limit = 151;
+	const URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
+	const data: PokemonsResponse = await fetch(URL).then(res => res.json());
 
-	return static151Pokemons.map(id => ({
-		id: id,
+	const pokemonsName = data.results.map(pokemon => ({
+		// url = 'https://pokeapi.co/api/v2/pokemon/10/'
+		name: pokemon.name,
+	}));
+
+	return pokemonsName.map(({ name }) => ({
+		name: name,
 	}));
 }
 
 // METADATA
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	try {
-		const { id, name } = await getPokemon(params.id);
+		const { id, name } = await getPokemon(params.name);
 		return {
 			title: `Pokemon #${id} - ${name}`,
 			description: `Pagina del Pokemon #${id} - ${name}`,
@@ -35,9 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
-const getPokemon = async (id: string): Promise<PokemonResponse> => {
+const getPokemon = async (name: string): Promise<PokemonResponse> => {
 	try {
-		const URL: string = `https://pokeapi.co/api/v2/pokemon/${id}`;
+		const URL: string = `https://pokeapi.co/api/v2/pokemon/${name}`;
 		const res = await fetch(URL, {
 			next: { revalidate: 324000 }, // 324000 === 60seg * 60min * 30dias * 3meses
 		});
@@ -49,7 +54,7 @@ const getPokemon = async (id: string): Promise<PokemonResponse> => {
 };
 
 export default async function PokemonPage({ params }: Props) {
-	const pokemon = await getPokemon(params.id);
+	const pokemon = await getPokemon(params.name);
 
 	return (
 		<div className='flex mt-5 flex-col items-center text-slate-800'>
