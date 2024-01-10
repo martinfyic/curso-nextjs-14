@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import {
-	IoCalculator,
-	IoLogoReact,
 	IoBrowsersOutline,
+	IoCalculator,
 	IoFootball,
+	IoHeartOutline,
+	IoLogoReact,
 } from 'react-icons/io5';
 
 import { SidebarMenuItems } from './SidebarMenuItems';
@@ -14,7 +16,7 @@ const menuItems = [
 		path: '/dashboard/main',
 		icon: <IoBrowsersOutline size={35} />,
 		title: 'Dashboard',
-		subTitle: 'Vizualizacion',
+		subTitle: 'Visualización',
 	},
 	{
 		path: '/dashboard/counter',
@@ -26,7 +28,13 @@ const menuItems = [
 		path: '/dashboard/pokemons',
 		icon: <IoFootball size={35} />,
 		title: 'Pokemons',
-		subTitle: 'Generacion estatica',
+		subTitle: 'Generación estática',
+	},
+	{
+		path: '/dashboard/favorites',
+		icon: <IoHeartOutline size={35} />,
+		title: 'Pokemons Favoritos',
+		subTitle: 'Generación estática',
 	},
 ];
 
@@ -54,7 +62,7 @@ export const Sidebar = () => {
 				className='px-6 py-10'
 			>
 				<p className='text-slate-500'>Welcome back,</p>
-				<a
+				<Link
 					href='#'
 					className='inline-flex space-x-2 items-center'
 				>
@@ -70,7 +78,7 @@ export const Sidebar = () => {
 					<span className='text-sm md:text-base font-bold'>
 						Martin Ferreira
 					</span>
-				</a>
+				</Link>
 			</div>
 			<nav
 				id='nav'

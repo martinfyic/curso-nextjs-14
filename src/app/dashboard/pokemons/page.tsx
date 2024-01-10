@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 
 // METADATA
 export const metadata: Metadata = {
-	title: 'Pokemons',
-	description: 'Todos los poquemons',
+	title: 'Pokémons',
+	description: 'Todos los Pokemons',
 };
 
 const getPokemons = async (
@@ -28,11 +28,11 @@ export default async function PokemonsPage() {
 	const pokemons = await getPokemons(151);
 	return (
 		<section className='flex flex-col'>
-			<h1 className='text-center text-9xl mb-16 font-extrabold'>
+			<h1 className='text-center text-7xl mb-16 font-extrabold'>
 				<span className='text-yellow-500'>P</span>okemons
 			</h1>
 			<span className='text-5xl text-center mb-16 font-semibold'>
-				Listado <small className='font-light'>estatico</small>
+				Listado <small className='font-light'>estático</small>
 			</span>
 			<PokemonGrid pokemons={pokemons} />
 		</section>

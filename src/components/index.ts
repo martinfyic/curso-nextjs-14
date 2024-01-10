@@ -1,2 +1,2 @@
-export * from './Sidebar';
-export * from './SidebarMenuItems';
+export * from './dashboard';
+export * from './sidebar';

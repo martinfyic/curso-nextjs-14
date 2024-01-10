@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 
@@ -20,7 +21,7 @@ export const SidebarMenuItems: FC<Props> = ({
 	const isActiveLink = currentPath === path;
 
 	return (
-		<a
+		<Link
 			href={path}
 			className={`w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3  hover:bg-white/5 transition ease-linear duration-150 ${
 				isActiveLink && 'bg-blue-800'
@@ -33,6 +34,6 @@ export const SidebarMenuItems: FC<Props> = ({
 					{subTitle}
 				</span>
 			</div>
-		</a>
+		</Link>
 	);
 };
