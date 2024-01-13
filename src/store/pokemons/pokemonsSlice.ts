@@ -3,19 +3,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SimplePokemon } from '@/pokemons';
 
 interface PokemonsFavoriteState {
-	[key: string]: SimplePokemon;
+	favorite: { [key: string]: SimplePokemon };
 }
 
-const getInitialState = (): PokemonsFavoriteState => {
-	const favorites = JSON.parse(
-		localStorage.getItem('favorit-pokemons') ?? '{}'
-	);
+// const getInitialState = (): PokemonsFavoriteState => {
+// 	// if (typeof localStorage === 'undefined') return {};
 
-	return favorites;
-};
+// 	const favorites = JSON.parse(
+// 		localStorage.getItem('favorit-pokemons') ?? '{}'
+// 	);
+
+// 	return favorites;
+// };
 
 const initialState: PokemonsFavoriteState = {
-	...getInitialState(),
+	favorite: {},
 };
 
 const pokemonsSlice = createSlice({
@@ -26,21 +28,26 @@ const pokemonsSlice = createSlice({
 			const pokemon = action.payload;
 			const { id } = pokemon;
 
-			if (!!state[id]) {
-				delete state[id];
+			if (!!state.favorite[id]) {
+				delete state.favorite[id];
 				return;
 			} else {
-				state[id] = pokemon;
+				state.favorite[id] = pokemon;
 			}
 
-			//! ---
 			// En redux no es buena practica llamar al localStorage dentro del reducer, deben ser funciones puras
-			// localStorage.setItem('favorit-pokemons', JSON.stringify(state));
-			//!--
+			localStorage.setItem('favorit-pokemons', JSON.stringify(state.favorite));
+		},
+
+		setFavoritPokemon(
+			state,
+			action: PayloadAction<{ [key: string]: SimplePokemon }>
+		) {
+			state.favorite = action.payload;
 		},
 	},
 });
 
-export const { toggleFavorite } = pokemonsSlice.actions;
+export const { setFavoritPokemon, toggleFavorite } = pokemonsSlice.actions;
 
 export default pokemonsSlice.reducer;

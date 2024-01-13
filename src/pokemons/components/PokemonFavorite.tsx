@@ -7,7 +7,7 @@ import { PokemonFavoriteEmpty, PokemonGrid } from './';
 
 export const PokemonFavorite = () => {
 	const favoritesPokemons = useAppSelector(state =>
-		Object.values(state.pokemons)
+		Object.values(state.pokemons.favorite)
 	);
 
 	const [pokemons, setPokemons] = useState(favoritesPokemons);

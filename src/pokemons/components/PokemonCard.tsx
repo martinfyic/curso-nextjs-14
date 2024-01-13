@@ -14,7 +14,7 @@ interface Props {
 
 export const PokemonCard = ({ pokemon }: Props) => {
 	const { id, name } = pokemon;
-	const isFavorite = useAppSelector(state => !!state.pokemons[id]);
+	const isFavorite = useAppSelector(state => !!state.pokemons.favorite[id]);
 	const dispatch = useAppDispatch();
 
 	const handleToggle = () => {
@@ -31,6 +31,7 @@ export const PokemonCard = ({ pokemon }: Props) => {
 						width={110}
 						height={110}
 						priority={false}
+						style={{ height: 'auto' }}
 					/>
 					<p className='pt-2 text-lg font-semibold text-gray-50 capitalize'>
 						{name}
